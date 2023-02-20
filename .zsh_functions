@@ -1,0 +1,181 @@
+cdht() {
+  cd $HOME/Workspaces/htdocs
+  if [ ! -z "$1" ];
+    then cd "$1";
+  fi;
+}
+
+cdwp() {
+  # Usage:
+  # $ cdwp $FOLDER
+
+  # Go to `htdocs` folder
+  cdht
+
+  # Trim string, before* and after**
+  FLDR="${1##*( )}" # *
+  FLDR="${FLDR%%*( )}" # **
+  echo -e "Changing directory to: '$(colorecho "$FLDR/wp-content/themes/$FLDR" "0;33")'"
+  cd $FLDR/wp-content/themes/$FLDR
+}
+
+removefile() {
+  # Usage:
+  # $ removefile $FILE $FOLDER
+  
+  if [ ! -z "$2" ];
+    then RMPATH=./$2;
+    else RMPATH=.;
+  fi;
+  echo -e "Searching for '$(colorecho $1 "0;33")' inside '$(colorecho $RMPATH "0;33")'"
+  find $RMPATH -name $1 -type f -delete;
+  echo -e "$(colorecho "✓ Removed all '$1'" "1;32")"
+}
+
+colorecho() {
+  # Usage:
+  # $(colorecho "string" "style;color")
+  # $(colorecho "test" "0;32")
+  C_S='\033[' # Color Start
+  C_E='m' # Color End
+  C_NC='\033[0m' # No Color
+  echo -e "${C_S}$2${C_E}$1${C_NC}"
+}
+
+installcomposer() {
+  #!/bin/sh
+
+  EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
+  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  ACTUAL_CHECKSUM="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+
+  if [ "$EXPECTED_CHECKSUM" != "$ACTUAL_CHECKSUM" ]
+  then
+    >&2 echo 'ERROR: Invalid installer checksum'
+    rm composer-setup.php
+    echo -e "$(colorecho "× Composer not installed." "1;31")";
+  else
+    php composer-setup.php
+    RESULT=$?
+    rm composer-setup.php
+    echo -e "$(colorecho "✓ Composer installed successfully!" "1;32")";
+  fi
+
+}
+
+installwpcli() {
+  curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+}
+
+mamp() {
+  # Usage:
+  # $ mamp start
+  # $ mamp stop
+  # $ mamp restart
+
+  MAMP_BIN_PATH="/Applications/MAMP/bin"
+  case $1 in
+    start)
+      sudo $MAMP_BIN_PATH/start.sh
+    ;;
+
+    stop)
+      $MAMP_BIN_PATH/stop.sh
+    ;;
+
+    restart)
+      $MAMP_BIN_PATH/stop.sh
+      $MAMP_BIN_PATH/start.sh
+    ;;
+
+    open)
+      open -a MAMP
+    ;;
+
+    close)
+      osascript -e 'quit app "MAMP"'
+    ;;
+    
+    *)
+      # ┌─────────────────────────────────┐
+      # │ Usage:                          │
+      # ├─────────────────────────────────┤
+      # │ start      Starts MAMP server   │
+      # │ stop       Stops MAMP server    │
+      # │ restart    Restarts MAMP server │
+      # ├─────────────────────────────────┤
+      # │ open       Open MAMP GUI        │
+      # │ close      Close MAMP GUI       │
+      # └─────────────────────────────────┘
+      echo "┌─────────────────────────────────┐"
+      echo "│ Usage:                          │"
+      echo "├─────────────────────────────────┤"
+      echo "│ $(colorecho "start" "1;33")      Starts MAMP server   │"
+      echo "│ $(colorecho "stop" "1;33")       Stops MAMP server    │"
+      echo "│ $(colorecho "restart" "1;33")    Restarts MAMP server │"
+      echo "├─────────────────────────────────┤"
+      echo "│ $(colorecho "open" "1;33")       Open MAMP GUI        │"
+      echo "│ $(colorecho "close" "1;33")      Close MAMP GUI       │"
+      echo "└─────────────────────────────────┘"
+  esac
+}
+
+phpv () {
+  VERSION=$1;
+
+  # if [ ! -z "$VERSION" ]
+  # then
+    case $VERSION in
+      54) ln -sfF $BIN_PHP54 $FOLDER_PHP_LOCAL ;;
+      56) ln -sfF $BIN_PHP56 $FOLDER_PHP_LOCAL ;;
+      71) ln -sfF $BIN_PHP71 $FOLDER_PHP_LOCAL ;;
+      72) ln -sfF $BIN_PHP72 $FOLDER_PHP_LOCAL ;;
+      73) ln -sfF $BIN_PHP73 $FOLDER_PHP_LOCAL ;;
+      74) ln -sfF $BIN_PHP74 $FOLDER_PHP_LOCAL ;;
+      80) ln -sfF $BIN_PHP80 $FOLDER_PHP_LOCAL ;;
+      81) ln -sfF $BIN_PHP81 $FOLDER_PHP_LOCAL ;;
+      *)
+        echo "\nAvailable versions:"
+        echo "54 -> PHP 5.4.45"
+        echo "56 -> PHP 5.6.40"
+        echo "71 -> PHP 7.1.33"
+        echo "72 -> PHP 7.2.34"
+        echo "73 -> PHP 7.3.29"
+        echo "74 -> PHP 7.4.21"
+        echo "81 -> PHP 8.1.x"
+      ;;
+    esac
+  # fi
+}
+
+opendocker () {
+  # Launch Docker
+  open -a Docker
+
+  TEXT="Waiting for Docker to launch..."
+  STEPS="8"
+  LOOPS="3"
+  TOT_LOOPS="$(expr $STEPS \* $LOOPS)"
+  TOT_SLEEP=5
+  SLEEP="$( echo "scale=2; $TOT_SLEEP / $TOT_LOOPS" | bc )"
+  
+  # "Wait for Docker to launch..." cit.
+  echo "$(colorecho "░░░░░" "0;33") $TEXT"
+  while (! docker stats --no-stream 2> /dev/null 1> /dev/null); do
+    II=0
+    while [ `expr $II \< $TOT_LOOPS` -eq 1 ]; do
+      if   [ `expr $II % $STEPS` -eq 1 ]; then echo "\033[A\r$(colorecho "█░░░░" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 2 ]; then echo "\033[A\r$(colorecho "██░░░" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 3 ]; then echo "\033[A\r$(colorecho "███░░" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 4 ]; then echo "\033[A\r$(colorecho "░███░" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 5 ]; then echo "\033[A\r$(colorecho "░░███" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 6 ]; then echo "\033[A\r$(colorecho "░░░██" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 7 ]; then echo "\033[A\r$(colorecho "░░░░█" "0;33") $TEXT";
+      else                                     echo "\033[A\r$(colorecho "░░░░░" "0;33") $TEXT";
+      fi
+      sleep $SLEEP
+      II=$((II+1))
+    done
+  done
+  echo "\033[A\rDocker launched!\n"
+}
