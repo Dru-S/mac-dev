@@ -2,7 +2,7 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Load a nice ASCII logo/motd if exists, with `lolcat` if exists
-$MOTD="$HOME/.zsh_motd"
+MOTD="$HOME/.zsh_motd"
 if [ -e $MOTD ]; then
   if type "lolcat" > /dev/null
     then lolcat $MOTD
