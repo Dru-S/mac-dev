@@ -120,34 +120,6 @@ mamp() {
   esac
 }
 
-phpv () {
-  VERSION=$1;
-
-  # if [ ! -z "$VERSION" ]
-  # then
-    case $VERSION in
-      54) ln -sfF $BIN_PHP54 $FOLDER_PHP_LOCAL ;;
-      56) ln -sfF $BIN_PHP56 $FOLDER_PHP_LOCAL ;;
-      71) ln -sfF $BIN_PHP71 $FOLDER_PHP_LOCAL ;;
-      72) ln -sfF $BIN_PHP72 $FOLDER_PHP_LOCAL ;;
-      73) ln -sfF $BIN_PHP73 $FOLDER_PHP_LOCAL ;;
-      74) ln -sfF $BIN_PHP74 $FOLDER_PHP_LOCAL ;;
-      80) ln -sfF $BIN_PHP80 $FOLDER_PHP_LOCAL ;;
-      81) ln -sfF $BIN_PHP81 $FOLDER_PHP_LOCAL ;;
-      *)
-        echo "\nAvailable versions:"
-        echo "54 -> PHP 5.4.45"
-        echo "56 -> PHP 5.6.40"
-        echo "71 -> PHP 7.1.33"
-        echo "72 -> PHP 7.2.34"
-        echo "73 -> PHP 7.3.29"
-        echo "74 -> PHP 7.4.21"
-        echo "81 -> PHP 8.1.x"
-      ;;
-    esac
-  # fi
-}
-
 opendocker () {
   # Launch Docker
   open -a Docker

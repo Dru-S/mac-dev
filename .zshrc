@@ -71,24 +71,7 @@ alias whatsmyip="ifconfig | grep -E \"inet.*broadcast\" | grep -Eo -m 1 \"inet (
 alias opena="open -a"
 
 # PHPs
-FOLDER_PHP_LOCAL="$HOME/bin/php"
-BIN_PHP_LOCAL="$FOLDER_PHP_LOCAL/bin"
-BIN_PHP54="/Applications/MAMP/bin/php/php5.4.45/bin"
-BIN_PHP56="/Applications/MAMP/bin/php/php5.6.40/bin"
-BIN_PHP71="/Applications/MAMP/bin/php/php7.1.33/bin"
-BIN_PHP72="/Applications/MAMP/bin/php/php7.2.34/bin"
-BIN_PHP73="/Applications/MAMP/bin/php/php7.3.29/bin"
-BIN_PHP74="/Applications/MAMP/bin/php/php7.4.21/bin"
-BIN_PHP80="/Applications/MAMP/bin/php/\$php8.0.8/bin"
-BIN_PHP81="/opt/homebrew/bin"
-alias php54="$BIN_PHP54/php"
-alias php56="$BIN_PHP56/php"
-alias php71="$BIN_PHP71/php"
-alias php72="$BIN_PHP72/php"
-alias php73="$BIN_PHP73/php"
-alias php74="$BIN_PHP74/php"
-alias php80="$BIN_PHP80/php"
-alias php81="$BIN_PHP81/php"
+source ~/.zsh_php
 
 # ElasticSearch
 alias elasticsearch6="$HOME/bin/elasticsearch6/bin/elasticsearch"
@@ -120,15 +103,6 @@ export PATH=$PATH:/Applications/MAMP/Library/bin
 # export PATH=$PATH:$HOME/Documents/Utility/android-platform-tools
 # export PATH=$PATH:$HOME/Documents/Flutter/SDK/bin
 export PATH=$PATH:/opt/homebrew/bin
-
-export php54
-export php56
-export php71
-export php72
-export php73
-export php74
-export php80
-export php81
 
 # export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 # export ES_JAVA_HOME=$(/usr/libexec/java_home -v 11)
