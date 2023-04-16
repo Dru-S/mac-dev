@@ -1,5 +1,9 @@
 # Load HomeBrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ -f "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -f "/usr/local/bin/brew" ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 # Load a nice ASCII logo/motd if exists, with `lolcat` if exists
 MOTD="$HOME/.zsh_motd"
@@ -50,6 +54,7 @@ VHOSTS_PATH="/Applications/MAMP/conf/apache/extra/httpd-vhosts.conf"
 # ---------------
 
 alias cdb="cd /Applications/MAMP/htdocs/~boilerplates"
+alias cdgh="cd ~/Workspaces/github"
 # alias cat="bat"
 alias ls="ls -G"
 alias ll="ls -alh"
@@ -114,12 +119,20 @@ export NVM_DIR="$HOME/.nvm"
 
 # Load Powerlevel10k
 # Activation
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+if [ -f "/opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+  source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+elif [ -f "/usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+  source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Load zsh-syntax-highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # WP CLI autocompletion
 # source $HOME/.wp-cli/wp-completion.bash
