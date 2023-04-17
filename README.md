@@ -1,11 +1,7 @@
-<div style="text-align: center;">
-  <br>
+<div align="center">
   <img src=".readme/logo.png" />
-  <br>
-  <br>
-  <h1 style="border: none; padding: 0; margin-bottom: 10px;"><strong>Mac Dev</strong></h1>
+  <h1><strong>Mac Dev</strong></h1>
   <p>Personal `.zshrc`, and mac-dev related things.</p>
-  <br>
 </div>
 
 ## Link `.zshrc`, and related files
