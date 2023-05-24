@@ -72,8 +72,9 @@ alias composer="php composer.phar"
 alias composer74="php74 composer.phar"
 alias wp="php wp-cli.phar"
 alias magento="php73 -d \"memory_limit=-1\" bin/magento"
-alias whatsmyip="ifconfig | grep -E \"inet.*broadcast\" | grep -Eo -m 1 \"inet ((\d+)\.){3}((\d*))\""
+alias whatsmyip="ifconfig | grep -Eo -e 'inet\s(([0-9]{1,3}\.){3}[0-9]{1,3})\s' | sed -E 's/inet[[:space:]]//g' | sed -E 's/127.*/IP Address:/g'"
 alias opena="open -a"
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 # PHPs
 source ~/.zsh_php
@@ -113,9 +114,12 @@ export PATH=$PATH:/opt/homebrew/bin
 # export ES_JAVA_HOME=$(/usr/libexec/java_home -v 11)
 
 # Load NVM
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # Load Powerlevel10k
 # Activation

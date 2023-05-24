@@ -9,7 +9,7 @@ BIN_PHP71="/Applications/MAMP/bin/php/php7.1.33/bin"
 BIN_PHP72="/Applications/MAMP/bin/php/php7.2.34/bin"
 BIN_PHP73="/Applications/MAMP/bin/php/php7.3.29/bin"
 BIN_PHP74="/Applications/MAMP/bin/php/php7.4.21/bin"
-BIN_PHP80="/Applications/MAMP/bin/php/\$php8.0.8/bin"
+BIN_PHP80="/Applications/MAMP/bin/php/php8.0.8/bin"
 BIN_PHP81="/opt/homebrew/bin"
 
 alias php54="$BIN_PHP54/php"
@@ -34,14 +34,14 @@ phpv () {
   VERSION=$1;
 
   case $VERSION in
-    54) ln -sfF $BIN_PHP54 $FOLDER_PHP_LOCAL ;;
-    56) ln -sfF $BIN_PHP56 $FOLDER_PHP_LOCAL ;;
-    71) ln -sfF $BIN_PHP71 $FOLDER_PHP_LOCAL ;;
-    72) ln -sfF $BIN_PHP72 $FOLDER_PHP_LOCAL ;;
-    73) ln -sfF $BIN_PHP73 $FOLDER_PHP_LOCAL ;;
-    74) ln -sfF $BIN_PHP74 $FOLDER_PHP_LOCAL ;;
-    80) ln -sfF $BIN_PHP80 $FOLDER_PHP_LOCAL ;;
-    81) ln -sfF $BIN_PHP81 $FOLDER_PHP_LOCAL ;;
+    54) ln -sfF $BIN_PHP54 $FOLDER_PHP_LOCAL && php -v ;;
+    56) ln -sfF $BIN_PHP56 $FOLDER_PHP_LOCAL && php -v ;;
+    71) ln -sfF $BIN_PHP71 $FOLDER_PHP_LOCAL && php -v ;;
+    72) ln -sfF $BIN_PHP72 $FOLDER_PHP_LOCAL && php -v ;;
+    73) ln -sfF $BIN_PHP73 $FOLDER_PHP_LOCAL && php -v ;;
+    74) ln -sfF $BIN_PHP74 $FOLDER_PHP_LOCAL && php -v ;;
+    80) ln -sfF $BIN_PHP80 $FOLDER_PHP_LOCAL && php -v ;;
+    81) ln -sfF $BIN_PHP81 $FOLDER_PHP_LOCAL && php -v ;;
     *)
       echo ""
       echo "Available versions:"
