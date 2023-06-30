@@ -85,8 +85,8 @@ alias elasticsearch7="$HOME/bin/elasticsearch7/bin/elasticsearch"
 alias elasticsearch8="$HOME/bin/elasticsearch8/bin/elasticsearch"
 
 # Python
-alias python="/opt/homebrew/bin/python3"
-alias pip="/opt/homebrew/bin/pip3"
+alias python="/opt/homebrew/bin/python3.10"
+alias pip="/opt/homebrew/bin/pip3.10"
 
 
 # -----------------
