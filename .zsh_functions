@@ -1,3 +1,24 @@
+# ---------------------------
+# --- Colors/Style output ---
+# ---------------------------
+# -- Styles --
+# 0 - Regular
+# 1 - Bold
+# 2 - Dimmed
+# 3 - Italic
+# 4 - Underline
+# 7 - Background (Invert text ⟶ bg)
+# 9 - Strike-through
+# -- Colors (3x text - 4x bg) --
+# 0 (30, 40) - Black
+# 1 (31, 41) - Red
+# 2 (32, 42) - Green
+# 3 (33, 43) - Yellow
+# 4 (34, 44) - Blue
+# 5 (35, 45) - Purple
+# 6 (36, 46) - Teal/Cyan
+# 7 (37, 47) - Gray
+
 cdht() {
   cd $HOME/Workspaces/htdocs
   if [ ! -z "$1" ];
@@ -129,25 +150,25 @@ opendocker () {
   LOOPS="3"
   TOT_LOOPS="$(expr $STEPS \* $LOOPS)"
   TOT_SLEEP=5
-  SLEEP="$( echo "scale=2; $TOT_SLEEP / $TOT_LOOPS" | bc )"
+  SLEEP="$( echo -n "scale=2; $TOT_SLEEP / $TOT_LOOPS" | bc )"
   
   # "Wait for Docker to launch..." cit.
-  echo "$(colorecho "░░░░░" "0;33") $TEXT"
+  echo -n "$(colorecho "□□□□□" "0;33") $TEXT"
   while (! docker stats --no-stream 2> /dev/null 1> /dev/null); do
     II=0
     while [ `expr $II \< $TOT_LOOPS` -eq 1 ]; do
-      if   [ `expr $II % $STEPS` -eq 1 ]; then echo "\033[A\r$(colorecho "█░░░░" "0;33") $TEXT";
-      elif [ `expr $II % $STEPS` -eq 2 ]; then echo "\033[A\r$(colorecho "██░░░" "0;33") $TEXT";
-      elif [ `expr $II % $STEPS` -eq 3 ]; then echo "\033[A\r$(colorecho "███░░" "0;33") $TEXT";
-      elif [ `expr $II % $STEPS` -eq 4 ]; then echo "\033[A\r$(colorecho "░███░" "0;33") $TEXT";
-      elif [ `expr $II % $STEPS` -eq 5 ]; then echo "\033[A\r$(colorecho "░░███" "0;33") $TEXT";
-      elif [ `expr $II % $STEPS` -eq 6 ]; then echo "\033[A\r$(colorecho "░░░██" "0;33") $TEXT";
-      elif [ `expr $II % $STEPS` -eq 7 ]; then echo "\033[A\r$(colorecho "░░░░█" "0;33") $TEXT";
-      else                                     echo "\033[A\r$(colorecho "░░░░░" "0;33") $TEXT";
+      if   [ `expr $II % $STEPS` -eq 1 ]; then echo -n "\033[2K\r$(colorecho "■□□□□" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 2 ]; then echo -n "\033[2K\r$(colorecho "■■□□□" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 3 ]; then echo -n "\033[2K\r$(colorecho "■■■□□" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 4 ]; then echo -n "\033[2K\r$(colorecho "□■■■□" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 5 ]; then echo -n "\033[2K\r$(colorecho "□□■■■" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 6 ]; then echo -n "\033[2K\r$(colorecho "□□□■■" "0;33") $TEXT";
+      elif [ `expr $II % $STEPS` -eq 7 ]; then echo -n "\033[2K\r$(colorecho "□□□□■" "0;33") $TEXT";
+      else                                     echo -n "\033[2K\r$(colorecho "□□□□□" "0;33") $TEXT";
       fi
       sleep $SLEEP
       II=$((II+1))
     done
   done
-  echo "\033[A\rDocker launched!\n"
+  echo -n "\033[2K\r$(colorecho "✔" "0;32") Docker launched!\n"
 }

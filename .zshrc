@@ -21,27 +21,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# ---------------------------
-# --- Colors/Style output ---
-# ---------------------------
-# -- Styles --
-# 0 - Regular
-# 1 - Bold
-# 2 - Dimmed
-# 3 - Italic
-# 4 - Underline
-# 7 - Background (Invert text ⟶ bg)
-# 9 - Strike-through
-# -- Colors (3x text - 4x bg) --
-# 0 (30, 40) - Black
-# 1 (31, 41) - Red
-# 2 (32, 42) - Green
-# 3 (33, 43) - Yellow
-# 4 (34, 44) - Blue
-# 5 (35, 45) - Purple
-# 6 (36, 46) - Teal/Cyan
-# 7 (37, 47) - Gray
-
 # Load some functions
 fpath=($fpath "$HOME/.zfunctions")
 
