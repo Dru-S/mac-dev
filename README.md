@@ -21,3 +21,17 @@ So simply copy it, and then modify it (it will not change in the repo, hopefully
 ```sh
 cp .zsh_motd ~
 ```
+
+## PU
+#### Alias, "project utils"
+It contains a Python script, in which are stored some utilities I use to manage, launch, create things and more, in my work projects.
+
+As for the `.zsh*` files, simply link the folder to a `bin` folder in the home directory.
+```sh
+ln pu ~/bin/pu
+osascript -e 'tell application "Finder"' -e 'make new alias to folder (posix file "pu") at (posix file "~/bin2/pu")' -e 'end tell'
+```
+If the `~/bin` folder doesn't exists, (`ln: ~/bin/pu: No such file or directory`) simply create it, and then relaunch the prevoious command.
+```sh
+mkdir -p ~/bin
+```

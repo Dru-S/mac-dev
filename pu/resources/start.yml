@@ -1,0 +1,12 @@
+space2000:
+  commands:
+    - source ~/.zsh_functions
+    - opendocker
+    - sh ~/Workspaces/htdocs/space2000/~random/tmux.sh
+
+slaranet:
+  commands:
+    - source ~/.zsh_functions
+    - opendocker
+    - cd ~/Workspaces/htdocs/slaranet
+    - vendor/bin/sail start
