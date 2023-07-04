@@ -52,6 +52,7 @@ alias composer74="php74 composer.phar"
 alias wp="php wp-cli.phar"
 alias magento="php73 -d \"memory_limit=-1\" bin/magento"
 alias whatsmyip="ifconfig | grep -Eo -e 'inet\s(([0-9]{1,3}\.){3}[0-9]{1,3})\s' | sed -E 's/inet[[:space:]]//g' | sed -E 's/127.*/IP Address:/g'"
+alias whatsmypublicip="curl https://ifconfig.co/"
 alias opena="open -a"
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
