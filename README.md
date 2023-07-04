@@ -28,8 +28,7 @@ It contains a Python script, in which are stored some utilities I use to manage,
 
 As for the `.zsh*` files, simply link the folder to a `bin` folder in the home directory.
 ```sh
-ln pu ~/bin/pu
-osascript -e 'tell application "Finder"' -e 'make new alias to folder (posix file "pu") at (posix file "~/bin2/pu")' -e 'end tell'
+ln -s $(pwd)/pu ~/bin/pu
 ```
 If the `~/bin` folder doesn't exists, (`ln: ~/bin/pu: No such file or directory`) simply create it, and then relaunch the prevoious command.
 ```sh
