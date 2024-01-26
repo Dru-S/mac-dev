@@ -7,10 +7,12 @@ fi
 
 # Load a nice ASCII logo/motd if exists, with `lolcat` if exists
 MOTD="$HOME/.zsh_motd"
-if [ -e $MOTD ]; then
-  if type "lolcat" > /dev/null
-    then lolcat $MOTD
-    else cat $MOTD
+if [ "$MOTD_HIDE" != "true" ]; then
+  if [ -e $MOTD ]; then
+    if type "lolcat" > /dev/null
+      then lolcat $MOTD
+      else cat $MOTD
+    fi
   fi
 fi
 
@@ -54,10 +56,10 @@ alias magento="php73 -d \"memory_limit=-1\" bin/magento"
 alias whatsmyip="ifconfig | grep -Eo -e 'inet\s(([0-9]{1,3}\.){3}[0-9]{1,3})\s' | sed -E 's/inet[[:space:]]//g' | sed -E 's/127.*/IP Address:/g'"
 alias whatsmypublicip="curl https://ifconfig.co/"
 alias opena="open -a"
-alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
-
-# PHPs
-source ~/.zsh_php
+alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
+alias lnav="lnav -c \":enable-word-wrap\""
+alias millis="date +%s"
+alias tree="tree --dirsfirst"
 
 # ElasticSearch
 alias elasticsearch6="$HOME/bin/elasticsearch6/bin/elasticsearch"
@@ -74,6 +76,13 @@ alias pip="/opt/homebrew/bin/pip3.10"
 # -----------------
 
 source ~/.zsh_functions
+
+
+# ------------
+# --- PHPs ---
+# ------------
+
+source ~/.zsh_php
 
 
 # --------------------
@@ -103,11 +112,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Load Powerlevel10k
 # Activation
-if [ -f "/opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme" ]; then
-  source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
-elif [ -f "/usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme" ]; then
-  source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-fi
+source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

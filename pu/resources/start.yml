@@ -1,12 +1,38 @@
 space2000:
   commands:
+    - export MOTD_HIDE=true
     - source ~/.zsh_functions
     - opendocker
     - sh ~/Workspaces/htdocs/space2000/~random/tmux.sh
 
 slaranet:
   commands:
+    - export MOTD_HIDE=true
     - source ~/.zsh_functions
     - opendocker
     - cd ~/Workspaces/htdocs/slaranet
     - vendor/bin/sail start
+
+#
+
+wolf:
+  commands:
+    - export MOTD_HIDE=true
+    - source ~/.zshrc
+    - opendocker
+    - source ~/Workspaces/htdocs/wolf/wolf-shopify/~random/tmux.sh
+
+wolf-quick:
+  commands:
+    - export MOTD_HIDE=true
+    - source ~/.zshrc
+    # No opendocker
+    - source ~/Workspaces/htdocs/wolf/wolf-shopify/~random/tmux.sh
+
+#
+
+dydon:
+  commands:
+    - export MOTD_HIDE=true
+    - source ~/.zshrc
+    - source ~/Workspaces/htdocs/dydon/~random/tmux.sh

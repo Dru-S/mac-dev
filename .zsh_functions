@@ -172,3 +172,46 @@ opendocker () {
   done
   echo -n "\033[2K\r$(colorecho "✔" "0;32") Docker launched!\n"
 }
+
+shopiauth () {
+  SHOPIFY_CONFIG_PATH="$HOME/Library/Preferences/shopify-cli-kit-nodejs"
+  # SHOPIFY_CONFIG_PATH="$HOME/Downloads/test"
+  NAME=$1
+  DELETE=false
+
+  while getopts "d:o" ARG; do
+    case $ARG in
+      d)
+        NAME=${OPTARG}
+        DELETE=true
+        ;;
+      o)
+        open $SHOPIFY_CONFIG_PATH
+        exit 1
+        ;;
+    esac
+  done
+
+  # Continue script execution
+  if [ "$DELETE" = true ]; then
+    {
+      {
+        rm $SHOPIFY_CONFIG_PATH/config.json 2> /dev/null &&
+          echo "Removed $(colorecho "global" "1;33") config file"
+        rm  $SHOPIFY_CONFIG_PATH/$NAME-config.json 2> /dev/null &&
+          echo "Removed $(colorecho $NAME "1;33") config file"
+      } && {
+        echo "Remember to run $(colorecho "shopiauth" "1;33") to load a new config, or login again with Shopify CLI"
+      }
+    } || { # catch
+      echo "An error occurred while removing $(colorecho $NAME "1;31") or global config files"
+    }
+  else
+    { # try
+      cp $SHOPIFY_CONFIG_PATH/$NAME-config.json $SHOPIFY_CONFIG_PATH/config.json 2> /dev/null &&
+        echo "Switched to $(colorecho $NAME "1;33")"
+    } || { # catch
+      echo "An error occurred while switching to $(colorecho $NAME "1;31")"
+    }
+  fi
+}

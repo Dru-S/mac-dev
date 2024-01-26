@@ -10,7 +10,10 @@ BIN_PHP72="/Applications/MAMP/bin/php/php7.2.34/bin"
 BIN_PHP73="/Applications/MAMP/bin/php/php7.3.29/bin"
 BIN_PHP74="/Applications/MAMP/bin/php/php7.4.21/bin"
 BIN_PHP80="/Applications/MAMP/bin/php/php8.0.8/bin"
-BIN_PHP81="/opt/homebrew/bin"
+BIN_PHP81="/Applications/MAMP/bin/php/php8.1.13/bin"
+BIN_PHP82="/Applications/MAMP/bin/php/php8.2.0/bin"
+BIN_PHP81="$HOMEBREW_CELLAR/php@8.1/$(ls $HOMEBREW_CELLAR/php@8.1 | tail -n 1)/bin"
+BIN_PHPLL="$HOMEBREW_PREFIX/php/bin"
 
 alias php54="$BIN_PHP54/php"
 alias php56="$BIN_PHP56/php"
@@ -20,6 +23,8 @@ alias php73="$BIN_PHP73/php"
 alias php74="$BIN_PHP74/php"
 alias php80="$BIN_PHP80/php"
 alias php81="$BIN_PHP81/php"
+alias php82="$BIN_PHP82/php"
+alias phpLL="$BIN_PHPLL/php"
 
 export php54
 export php56
@@ -29,6 +34,8 @@ export php73
 export php74
 export php80
 export php81
+export php82
+export phpLL
 
 phpv () {
   VERSION=$1;
@@ -42,17 +49,30 @@ phpv () {
     74) ln -sfF $BIN_PHP74 $FOLDER_PHP_LOCAL && php -v ;;
     80) ln -sfF $BIN_PHP80 $FOLDER_PHP_LOCAL && php -v ;;
     81) ln -sfF $BIN_PHP81 $FOLDER_PHP_LOCAL && php -v ;;
+    82) ln -sfF $BIN_PHP82 $FOLDER_PHP_LOCAL && php -v ;;
+    LL) ln -sfF $BIN_PHPLL $FOLDER_PHP_LOCAL && php -v ;;
     *)
-      echo ""
       echo "Available versions:"
-      echo "54 -> PHP 5.4.45"
-      echo "56 -> PHP 5.6.40"
-      echo "71 -> PHP 7.1.33"
-      echo "72 -> PHP 7.2.34"
-      echo "73 -> PHP 7.3.29"
-      echo "74 -> PHP 7.4.21"
-      echo "81 -> PHP 8.1.x"
-      echo ""
+      echo " $(colorecho "54" "1;33") ┬─ PHP 5.4.45"
+      echo "    ╰─ $(colorecho "$BIN_PHP54" "2;37")"
+      echo " $(colorecho "56" "1;33") ┬─ PHP 5.6.40"
+      echo "    ╰─ $(colorecho "$BIN_PHP56" "2;37")"
+      echo " $(colorecho "71" "1;33") ┬─ PHP 7.1.33"
+      echo "    ╰─ $(colorecho "$BIN_PHP71" "2;37")"
+      echo " $(colorecho "72" "1;33") ┬─ PHP 7.2.34"
+      echo "    ╰─ $(colorecho "$BIN_PHP72" "2;37")"
+      echo " $(colorecho "73" "1;33") ┬─ PHP 7.3.29"
+      echo "    ╰─ $(colorecho "$BIN_PHP73" "2;37")"
+      echo " $(colorecho "74" "1;33") ┬─ PHP 7.4.21"
+      echo "    ╰─ $(colorecho "$BIN_PHP74" "2;37")"
+      echo " $(colorecho "80" "1;33") ┬─ PHP 8.0.8"
+      echo "    ╰─ $(colorecho "$BIN_PHP80" "2;37")"
+      echo " $(colorecho "81" "1;33") ┬─ PHP 8.1.x"
+      echo "    ╰─ $(colorecho "$BIN_PHP81" "2;37")"
+      echo " $(colorecho "82" "1;33") ┬─ PHP 8.1.x"
+      echo "    ╰─ $(colorecho "$BIN_PHP82" "2;37")"
+      echo " $(colorecho "LL" "1;33") ┬─ Latest PHP from \`php\` Homebrew formula"
+      echo "    ╰─ $(colorecho "$BIN_PHPLL" "2;37")"
     ;;
   esac
 }
