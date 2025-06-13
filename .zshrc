@@ -98,6 +98,7 @@ export PATH=$PATH:/Applications/MAMP/Library/bin
 # export PATH=$PATH:$HOME/Documents/Utility/android-platform-tools
 # export PATH=$PATH:$HOME/Documents/Flutter/SDK/bin
 export PATH=$PATH:/opt/homebrew/bin
+export PATH=$PATH:/Applications/OpenSCAD.app/Contents/MacOS
 
 # export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 # export ES_JAVA_HOME=$(/usr/libexec/java_home -v 11)
