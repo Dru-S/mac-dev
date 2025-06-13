@@ -177,41 +177,68 @@ shopiauth () {
   SHOPIFY_CONFIG_PATH="$HOME/Library/Preferences/shopify-cli-kit-nodejs"
   # SHOPIFY_CONFIG_PATH="$HOME/Downloads/test"
   NAME=$1
-  DELETE=false
+  DELETE="false"
+  BACKUP="false"
 
-  while getopts "d:o" ARG; do
+  while getopts ":d:b:olh" ARG; do
     case $ARG in
-      d)
-        NAME=${OPTARG}
-        DELETE=true
+      h)
+        echo "Usage: $(basename $0) [-h] [-o] [-l] [-d \"name\"] [-b \"name\"]"
+        return
         ;;
       o)
         open $SHOPIFY_CONFIG_PATH
-        exit 1
+        return
+        ;;
+      l)
+        # colorls $SHOPIFY_CONFIG_PATH
+        tree $SHOPIFY_CONFIG_PATH | lolcat
+        return
+        ;;
+      d)
+        NAME=${OPTARG}
+        DELETE="true"
+        ;;
+      b)
+        NAME=${OPTARG}
+        BACKUP="true"
+        ;;
+      \?)
+        return
         ;;
     esac
   done
 
   # Continue script execution
-  if [ "$DELETE" = true ]; then
+  if [ "$DELETE" = "true" ]; then
     {
       {
         rm $SHOPIFY_CONFIG_PATH/config.json 2> /dev/null &&
           echo "Removed $(colorecho "global" "1;33") config file"
-        rm  $SHOPIFY_CONFIG_PATH/$NAME-config.json 2> /dev/null &&
-          echo "Removed $(colorecho $NAME "1;33") config file"
+
+        if [ "$NAME" != "global" ]; then
+          rm  $SHOPIFY_CONFIG_PATH/$NAME-config.json 2> /dev/null &&
+            echo "Removed $(colorecho "$NAME" "1;33") config file"
+        fi
       } && {
         echo "Remember to run $(colorecho "shopiauth" "1;33") to load a new config, or login again with Shopify CLI"
       }
     } || { # catch
-      echo "An error occurred while removing $(colorecho $NAME "1;31") or global config files"
+      echo "An error occurred while removing $(colorecho "$NAME" "1;31") or $(colorecho "global" "1;31") config files"
+    }
+  elif [ "$BACKUP" = "true" ]; then
+    { # try
+      cp $SHOPIFY_CONFIG_PATH/config.json $SHOPIFY_CONFIG_PATH/$NAME-config.json 2> /dev/null &&
+        echo "Backupped $(colorecho "$NAME" "1;33")"
+    } || { # catch
+      echo "An error occurred while backupping $(colorecho "$NAME" "1;31")"
     }
   else
     { # try
       cp $SHOPIFY_CONFIG_PATH/$NAME-config.json $SHOPIFY_CONFIG_PATH/config.json 2> /dev/null &&
-        echo "Switched to $(colorecho $NAME "1;33")"
+        echo "Switched to $(colorecho "$NAME" "1;33")"
     } || { # catch
-      echo "An error occurred while switching to $(colorecho $NAME "1;31")"
+      echo "An error occurred while switching to $(colorecho "$NAME" "1;31")"
     }
   fi
 }
