@@ -1,3 +1,17 @@
+test:
+  commands:
+    - echo "Test Script"
+  
+#
+
+shopify:
+  commands:
+    - export MOTD_HIDE=true
+    - source ~/.zsh_functions
+    - sh ~/bin/pu/resources/shopify.sh $(awk -F '"' '/"name":.?"(.+)",/{print $4}' package.json)
+
+#
+
 space2000:
   commands:
     - export MOTD_HIDE=true
